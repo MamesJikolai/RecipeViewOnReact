@@ -88,14 +88,14 @@ function View() {
     ];
 
     return (
-        <div className="w-[90%] max-w-5xl mx-auto py-8">
+        <>
             <Message text="Recipe List" />
             <div className="flex flex-row flex-wrap justify-center gap-4">
                 {foodList.map((item, index) => (
                     <FoodItem key={index} data={item} />
                 ))}
             </div>
-        </div>
+        </>
     );
 }
 

@@ -9,7 +9,7 @@ function Layout() {
                 <Navbar />
             </header>
 
-            <main className="bg-red-500 grow">
+            <main className="grow w-[90%] max-w-5xl mx-auto py-8">
                 <Outlet />
             </main>
 
