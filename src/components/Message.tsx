@@ -1,9 +1,5 @@
 function Message({ text }: { text: string }) {
-    return (
-        <div className="w-[90%] max-w-5xl mx-auto">
-            <h1>{text}</h1>
-        </div>
-    );
+    return <h1 className="font-bold text-4xl text-center mb-8">{text}</h1>;
 }
 
 export default Message;
