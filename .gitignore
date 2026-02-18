@@ -7,18 +7,26 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
+# DEPENDENCIES (Added **/ to match nested folders)
+**/node_modules
+
+# BUILD OUTPUT
+**/dist
 dist-ssr
-*.local
+
+# ENVIRONMENT VARIABLES (Important to keep private!)
 .env
 .env.*
+**/.env
 
-# Editor directories and files
+# SYSTEM FILES
+.DS_Store
+**/.DS_Store
+
+# IDE / Editor
+.idea
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
