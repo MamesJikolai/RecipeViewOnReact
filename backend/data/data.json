@@ -1,7 +1,14 @@
 [
     {
         "name": "Pork Adobo",
-        "type": ["Pork"],
+        "type": "Pork",
+        "tags": [
+            "Salty / Savory",
+            "Rich / Umami",
+            "Saucy",
+            "One-Pan / One-Pot",
+            "Meal-Prep Friendly"
+        ],
         "image": "https://panlasangpinoy.com/wp-content/uploads/2022/08/Filipino-Adobo-Pork-Recipe.jpg",
         "ingredients": [
             "Pork Belly",
@@ -14,7 +21,13 @@
     },
     {
         "name": "Vegetable Stir Fry",
-        "type": ["Vegetables"],
+        "type": "Vegetables",
+        "tags": [
+            "Rich / Umami",
+            "Saucy",
+            "One-Pan / One-Pot",
+            "Meal-Prep Friendly"
+        ],
         "image": "https://www.dinneratthezoo.com/wp-content/uploads/2019/02/vegetable-stir-fry-3.jpg",
         "ingredients": [
             "Broccoli",
@@ -31,7 +44,8 @@
     },
     {
         "name": "Bulalo",
-        "type": ["Beef", "Vegetables"],
+        "type": "Beef",
+        "tags": ["Contains Vegetables", "Salty / Savory", "Broth / Soup"],
         "image": "https://i2.wp.com/www.foodwithmae.com/wp-content/uploads/2019/01/BeefBulaloMaeRecipe.jpg?fit=1200%2C1180&ssl=1",
         "ingredients": [
             "Beef Shank",
@@ -47,23 +61,14 @@
         ]
     },
     {
-        "name": "Beef Giniling",
-        "type": ["Beef", "Vegetable"],
-        "image": "https://somebodyfeedseb.com/wp-content/uploads/2022/11/2022.06.16-Giniling-1388.jpg",
-        "ingredients": [
-            "Ground beef",
-            "Garlic",
-            "Onion",
-            "Carrots",
-            "Potato",
-            "Black pepper",
-            "Salt",
-            "Oyster sauce"
-        ]
-    },
-    {
         "name": "Pork Sinigang",
-        "type": ["Pork", "Vegetable"],
+        "type": "Pork",
+        "tags": [
+            "Sour / Tangy",
+            "Salty / Savory",
+            "Contains Vegetables",
+            "Broth / Soup"
+        ],
         "image": "https://panlasangpinoy.com/wp-content/uploads/2022/09/pork-sinigang-panlasang-pinoy.jpg",
         "ingredients": [
             "Pork belly",
