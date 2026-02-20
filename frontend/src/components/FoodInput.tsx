@@ -1,4 +1,16 @@
+import { useState } from "react";
+import type { ChangeEvent } from "react";
+import FoodInputIngredients from "./FoodInputIngredients";
+
 function FoodInput() {
+    const [foodInfo, setFoodInfo] = useState({
+        foodName: "",
+        foodType: "",
+        recipeTags: [] as string[],
+        imageLink: "",
+        ingredients: [] as string[],
+    });
+
     const foodTypes = ["Pork", "Beef", "Chicken", "Vegetables", "Seafood"];
     const recipeTags = [
         {
@@ -34,6 +46,48 @@ function FoodInput() {
         },
     ];
 
+    const handleFoodInfoChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { name, value, type, checked } = event.target;
+
+        if (type === "checkbox") {
+            setFoodInfo((prevInfo) => {
+                const currentTags = prevInfo.recipeTags as string[];
+
+                const updatedTags = checked
+                    ? [...currentTags, value]
+                    : currentTags.filter((item) => item !== value);
+
+                return {
+                    ...prevInfo,
+                    [name]: updatedTags,
+                };
+            });
+        } else {
+            setFoodInfo((prevInfo) => ({
+                ...prevInfo,
+                [name]: value,
+            }));
+        }
+    };
+
+    function updateIngredientsList(newIngredientsArray: string[]) {
+        setFoodInfo((prevInfo) => ({
+            ...prevInfo,
+            ingredients: newIngredientsArray,
+        }));
+    }
+
+    function handleSubmit() {
+        console.log(foodInfo);
+        setFoodInfo({
+            foodName: "",
+            foodType: "",
+            recipeTags: [] as string[],
+            imageLink: "",
+            ingredients: [] as string[],
+        });
+    }
+
     return (
         <div className="w-full max-w-125 mx-auto">
             <div className="mb-2">
@@ -42,7 +96,9 @@ function FoodInput() {
                     <br />
                     <input
                         type="text"
-                        name="food-name"
+                        name="foodName"
+                        value={foodInfo.foodName}
+                        onChange={handleFoodInfoChange}
                         className="bg-white px-1 w-full max-w-125 py-0.5"
                     />
                 </label>
@@ -56,7 +112,13 @@ function FoodInput() {
                             key={type}
                             className="flex gap-x-1 cursor-pointer"
                         >
-                            <input type="radio" name="food-type" value={type} />
+                            <input
+                                type="radio"
+                                name="foodType"
+                                value={type}
+                                checked={foodInfo.foodType === type}
+                                onChange={handleFoodInfoChange}
+                            />
                             {type}
                         </label>
                     ))}
@@ -76,8 +138,12 @@ function FoodInput() {
                                 >
                                     <input
                                         type="checkbox"
-                                        name="recipe-tags"
+                                        name="recipeTags"
+                                        checked={foodInfo.recipeTags.includes(
+                                            options,
+                                        )}
                                         value={options}
+                                        onChange={handleFoodInfoChange}
                                     />
                                     {options}
                                 </label>
@@ -93,10 +159,27 @@ function FoodInput() {
                     <br />
                     <input
                         type="text"
-                        name="image-link"
+                        name="imageLink"
+                        value={foodInfo.imageLink}
+                        onChange={handleFoodInfoChange}
                         className="bg-white px-1 w-full max-w-125 py-0.5"
                     />
                 </label>
+            </div>
+
+            <FoodInputIngredients
+                ingredientsList={foodInfo.ingredients}
+                onIngredientsChange={updateIngredientsList}
+            />
+
+            <div className="text-center">
+                <button
+                    type="submit"
+                    className="bg-green-500 px-4 py-1 rounded-md font-bold cursor-pointer"
+                    onClick={handleSubmit}
+                >
+                    SUBMIT
+                </button>
             </div>
         </div>
     );
