@@ -5,15 +5,17 @@ import Footer from "./components/Footer.tsx";
 function Layout() {
     return (
         <div className="flex flex-col min-h-screen">
-            <header className="bg-blue-500">
+            <header className="bg-emerald-600">
                 <Navbar />
             </header>
 
-            <main className="grow w-[90%] max-w-5xl mx-auto py-8">
-                <Outlet />
+            <main className="bg-slate-50 py-10 grow">
+                <div className="w-[90%] max-w-5xl mx-auto py-8">
+                    <Outlet />
+                </div>
             </main>
 
-            <footer className="bg-green-500">
+            <footer className="bg-emerald-600">
                 <Footer />
             </footer>
         </div>

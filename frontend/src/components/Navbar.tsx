@@ -25,8 +25,8 @@ function Navbar() {
                         className={
                             ({ isActive }) =>
                                 isActive
-                                    ? "font-bold border-b-2 border-red-600 px-4 py-2 ml-2" //Active
-                                    : "hover:bg-red-500 px-4 py-2 ml-2" //Inactive
+                                    ? "font-bold text-white border-b-2 border-white px-4 py-2 ml-2 transition-all" //Active
+                                    : "font-medium text-green-100 hover:bg-white/10 rounded-md px-4 py-2 ml-2 transition-all" //Inactive
                         }
                     >
                         {title}

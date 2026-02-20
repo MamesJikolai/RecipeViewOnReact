@@ -89,28 +89,28 @@ function FoodInput() {
     }
 
     return (
-        <div className="w-full max-w-125 mx-auto">
-            <div className="mb-2">
+        <div className="w-full max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-2xl border-slate-100">
+            <div className="mb-6">
                 <label>
-                    <span className="font-bold">Food Name</span>
+                    <span className="font-bold text-gray-800">Food Name</span>
                     <br />
                     <input
                         type="text"
                         name="foodName"
                         value={foodInfo.foodName}
                         onChange={handleFoodInfoChange}
-                        className="bg-white px-1 w-full max-w-125 py-0.5"
+                        className="text-gray-600 bg-white border-2 border-gray-600 active:border-gray-800 rounded-lg px-1 w-full max-w-2xl py-0.5"
                     />
                 </label>
             </div>
 
             <fieldset>
-                <legend className="font-bold">Food Type</legend>
-                <div className="flex flex-row flex-wrap gap-x-4 mb-2">
+                <legend className="font-bold text-gray-800">Food Type</legend>
+                <div className="flex flex-row flex-wrap gap-x-4 mb-6">
                     {foodTypes.map((type) => (
                         <label
                             key={type}
-                            className="flex gap-x-1 cursor-pointer"
+                            className="text-gray-600 flex gap-x-1 cursor-pointer"
                         >
                             <input
                                 type="radio"
@@ -126,15 +126,15 @@ function FoodInput() {
             </fieldset>
 
             <fieldset>
-                <legend className="font-bold">Recipe Tags</legend>
+                <legend className="font-bold text-gray-800">Recipe Tags</legend>
                 {recipeTags.map(({ category, options }) => (
                     <div key={category}>
-                        <p className="font-medium">{category}</p>
+                        <p className="font-medium text-gray-800">{category}</p>
                         <div className="flex flex-row flex-wrap gap-x-4 mb-2">
                             {options.map((options) => (
                                 <label
                                     key={options}
-                                    className="flex gap-x-1 cursor-pointer"
+                                    className="flex gap-x-2 cursor-pointer text-gray-600"
                                 >
                                     <input
                                         type="checkbox"
@@ -153,16 +153,16 @@ function FoodInput() {
                 ))}
             </fieldset>
 
-            <div className="mb-2">
+            <div className="mb-6 mt-4">
                 <label>
-                    <span className="font-bold">Image Link</span>
+                    <span className="font-bold text-gray-800">Image Link</span>
                     <br />
                     <input
                         type="text"
                         name="imageLink"
                         value={foodInfo.imageLink}
                         onChange={handleFoodInfoChange}
-                        className="bg-white px-1 w-full max-w-125 py-0.5"
+                        className="text-gray-600 bg-white border-2 border-gray-600 active:border-gray-800 rounded-lg px-1 w-full max-w-2xl py-0.5"
                     />
                 </label>
             </div>
@@ -175,7 +175,7 @@ function FoodInput() {
             <div className="text-center">
                 <button
                     type="submit"
-                    className="bg-green-500 px-4 py-1 rounded-md font-bold cursor-pointer"
+                    className="bg-emerald-600 px-4 py-2 rounded-md font-bold hover:bg-emerald-400 cursor-pointer"
                     onClick={handleSubmit}
                 >
                     SUBMIT

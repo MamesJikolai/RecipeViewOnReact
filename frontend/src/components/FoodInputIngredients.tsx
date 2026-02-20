@@ -44,30 +44,33 @@ function FoodInputIngredients({
     return (
         <>
             <label>
-                <span className="font-bold">Ingredients</span>
+                <span className="font-bold text-gray-800">Ingredients</span>
                 <br />
-                <div className="flex">
+                <div className="flex items-center">
                     <input
                         type="text"
                         name="ingredients"
                         value={inputValue}
                         onChange={handleInputChange}
                         onKeyDown={handleKeyPress}
-                        className="bg-white px-1 w-full max-w-125 py-0.5"
+                        className="text-gray-600 bg-white border-2 border-gray-600 active:border-gray-800 rounded-lg px-1 w-full max-w-2xl py-0.5"
                     />
                     <button
                         type="button"
                         onClick={handleAddIngredient}
-                        className="cursor-pointer"
+                        className="bg-emerald-600 px-4 py-1 rounded-md font-bold ml-2 hover:bg-emerald-400 cursor-pointer"
                     >
                         Add
                     </button>
                 </div>
             </label>
 
-            <div>
+            <div className="mt-4 not-empty:border-t-2 not-empty:border-gray-600">
                 {ingredientsList.map((ingredient) => (
-                    <label key={ingredient} className="flex cursor-pointer">
+                    <label
+                        key={ingredient}
+                        className="text-gray-600 flex gap-x-2 py-2 border-b-2 cursor-pointer"
+                    >
                         <input
                             type="checkbox"
                             checked={true}
@@ -77,6 +80,7 @@ function FoodInputIngredients({
                     </label>
                 ))}
             </div>
+            <br />
         </>
     );
 }
