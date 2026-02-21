@@ -3,7 +3,7 @@ import FoodInput from "../components/FoodInput.tsx";
 function Add() {
     return (
         <>
-            <FoodInput />
+            <FoodInput isFilter={false} />
         </>
     );
 }

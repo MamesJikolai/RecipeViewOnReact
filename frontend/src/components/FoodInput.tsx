@@ -2,7 +2,12 @@ import { useState } from "react";
 import type { ChangeEvent } from "react";
 import FoodInputIngredients from "./FoodInputIngredients";
 
-function FoodInput() {
+interface FoodInputProps {
+    isFilter: boolean;
+    onApplyFilter?: (filterData: any) => void;
+}
+
+function FoodInput({ isFilter, onApplyFilter }: FoodInputProps) {
     const [foodInfo, setFoodInfo] = useState({
         foodName: "",
         foodType: "",
@@ -51,16 +56,18 @@ function FoodInput() {
 
         if (type === "checkbox") {
             setFoodInfo((prevInfo) => {
-                const currentTags = prevInfo.recipeTags as string[];
+                if (Array.isArray(prevInfo[name as keyof typeof prevInfo])) {
+                    const currentArray = prevInfo[
+                        name as keyof typeof prevInfo
+                    ] as string[];
+                    const updatedArray = checked
+                        ? [...currentArray, value]
+                        : currentArray.filter((item) => item !== value);
 
-                const updatedTags = checked
-                    ? [...currentTags, value]
-                    : currentTags.filter((item) => item !== value);
-
-                return {
-                    ...prevInfo,
-                    [name]: updatedTags,
-                };
+                    return { ...prevInfo, [name]: updatedArray };
+                } else {
+                    return { ...prevInfo, [name]: checked ? value : "" };
+                }
             });
         } else {
             setFoodInfo((prevInfo) => ({
@@ -77,8 +84,7 @@ function FoodInput() {
         }));
     }
 
-    function handleSubmit() {
-        console.log(foodInfo);
+    function clearInputs() {
         setFoodInfo({
             foodName: "",
             foodType: "",
@@ -86,6 +92,12 @@ function FoodInput() {
             imageLink: "",
             ingredients: [] as string[],
         });
+    }
+
+    function handleSubmit() {
+        console.log(foodInfo);
+        // Logic to send foodInfo to backend
+        clearInputs();
     }
 
     return (
@@ -153,19 +165,23 @@ function FoodInput() {
                 ))}
             </fieldset>
 
-            <div className="mb-6 mt-4">
-                <label>
-                    <span className="font-bold text-gray-800">Image Link</span>
-                    <br />
-                    <input
-                        type="text"
-                        name="imageLink"
-                        value={foodInfo.imageLink}
-                        onChange={handleFoodInfoChange}
-                        className="text-gray-600 bg-white border-2 border-gray-600 active:border-gray-800 rounded-lg px-1 w-full max-w-2xl py-0.5"
-                    />
-                </label>
-            </div>
+            {isFilter ? null : (
+                <div className="mb-6 mt-4">
+                    <label>
+                        <span className="font-bold text-gray-800">
+                            Image Link
+                        </span>
+                        <br />
+                        <input
+                            type="text"
+                            name="imageLink"
+                            value={foodInfo.imageLink}
+                            onChange={handleFoodInfoChange}
+                            className="text-gray-600 bg-white border-2 border-gray-600 active:border-gray-800 rounded-lg px-1 w-full max-w-2xl py-0.5"
+                        />
+                    </label>
+                </div>
+            )}
 
             <FoodInputIngredients
                 ingredientsList={foodInfo.ingredients}
@@ -174,12 +190,25 @@ function FoodInput() {
 
             <div className="text-center">
                 <button
-                    type="submit"
+                    type="button"
                     className="bg-emerald-600 px-4 py-2 rounded-md font-bold hover:bg-emerald-400 cursor-pointer"
-                    onClick={handleSubmit}
+                    onClick={
+                        isFilter
+                            ? () => onApplyFilter && onApplyFilter(foodInfo)
+                            : handleSubmit
+                    }
                 >
-                    SUBMIT
+                    {isFilter ? "Apply Filter" : "Submit"}
                 </button>
+
+                {isFilter ? (
+                    <button
+                        className="bg-rose-600 px-4 py-2 rounded-md font-bold hover:bg-rose-400 ml-4 cursor-pointer"
+                        onClick={clearInputs}
+                    >
+                        Clear Filters
+                    </button>
+                ) : null}
             </div>
         </div>
     );
