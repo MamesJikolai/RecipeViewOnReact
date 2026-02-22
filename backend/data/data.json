@@ -1,89 +1,116 @@
 [
-    {
-        "name": "Pork Adobo",
-        "type": "Pork",
-        "tags": [
-            "Salty / Savory",
-            "Rich / Umami",
-            "Saucy",
-            "One-Pan / One-Pot",
-            "Meal-Prep Friendly"
-        ],
-        "image": "https://panlasangpinoy.com/wp-content/uploads/2022/08/Filipino-Adobo-Pork-Recipe.jpg",
-        "ingredients": [
-            "Pork Belly",
-            "Soy Sauce",
-            "Vinegar",
-            "Garlic",
-            "Bay Leaves",
-            "Peppercorn"
-        ]
-    },
-    {
-        "name": "Vegetable Stir Fry with Mushroom",
-        "type": "Vegetables",
-        "tags": [
-            "Rich / Umami",
-            "Saucy",
-            "One-Pan / One-Pot",
-            "Meal-Prep Friendly"
-        ],
-        "image": "https://www.dinneratthezoo.com/wp-content/uploads/2019/02/vegetable-stir-fry-3.jpg",
-        "ingredients": [
-            "Broccoli",
-            "Carrots",
-            "Baby Corn",
-            "Snowpea",
-            "Mushroom",
-            "Oyster Sauce",
-            "Garlic",
-            "Onion",
-            "Salt",
-            "Pepper"
-        ]
-    },
-    {
-        "name": "Bulalo",
-        "type": "Beef",
-        "tags": ["Contains Vegetables", "Salty / Savory", "Broth / Soup"],
-        "image": "https://i2.wp.com/www.foodwithmae.com/wp-content/uploads/2019/01/BeefBulaloMaeRecipe.jpg?fit=1200%2C1180&ssl=1",
-        "ingredients": [
-            "Beef Shank",
-            "Water",
-            "Onion",
-            "Black Peppercorn",
-            "Fish Sauce",
-            "Corn",
-            "Bokchoy",
-            "Cabbage",
-            "Potatoes",
-            "Beef Broth Cubes"
-        ]
-    },
-    {
-        "name": "Pork Sinigang",
-        "type": "Pork",
-        "tags": [
-            "Sour / Tangy",
-            "Salty / Savory",
-            "Contains Vegetables",
-            "Broth / Soup"
-        ],
-        "image": "https://panlasangpinoy.com/wp-content/uploads/2022/09/pork-sinigang-panlasang-pinoy.jpg",
-        "ingredients": [
-            "Pork belly",
-            "Garlic",
-            "Onion",
-            "Tomato",
-            "Water",
-            "Black pepper",
-            "Salt",
-            "Pork cube",
-            "Sinigang mix",
-            "Radish",
-            "Sigarilyas",
-            "Okra",
-            "Kangkong"
-        ]
-    }
+  {
+    "name": "Pork Adobo",
+    "type": "Pork",
+    "tags": [
+      "Salty / Savory",
+      "Rich / Umami",
+      "Saucy",
+      "One-Pan / One-Pot",
+      "Meal-Prep Friendly"
+    ],
+    "image": "https://panlasangpinoy.com/wp-content/uploads/2022/08/Filipino-Adobo-Pork-Recipe.jpg",
+    "ingredients": [
+      "Pork Belly",
+      "Soy Sauce",
+      "Vinegar",
+      "Garlic",
+      "Bay Leaves",
+      "Peppercorn"
+    ]
+  },
+  {
+    "name": "Vegetable Stir Fry with Mushroom",
+    "type": "Vegetables",
+    "tags": [
+      "Rich / Umami",
+      "Saucy",
+      "One-Pan / One-Pot",
+      "Meal-Prep Friendly"
+    ],
+    "image": "https://www.dinneratthezoo.com/wp-content/uploads/2019/02/vegetable-stir-fry-3.jpg",
+    "ingredients": [
+      "Broccoli",
+      "Carrots",
+      "Baby Corn",
+      "Snowpea",
+      "Mushroom",
+      "Oyster Sauce",
+      "Garlic",
+      "Onion",
+      "Salt",
+      "Pepper"
+    ]
+  },
+  {
+    "name": "Bulalo",
+    "type": "Beef",
+    "tags": [
+      "Contains Vegetables",
+      "Salty / Savory",
+      "Broth / Soup"
+    ],
+    "image": "https://i2.wp.com/www.foodwithmae.com/wp-content/uploads/2019/01/BeefBulaloMaeRecipe.jpg?fit=1200%2C1180&ssl=1",
+    "ingredients": [
+      "Beef Shank",
+      "Water",
+      "Onion",
+      "Black Peppercorn",
+      "Fish Sauce",
+      "Corn",
+      "Bokchoy",
+      "Cabbage",
+      "Potatoes",
+      "Beef Broth Cubes"
+    ]
+  },
+  {
+    "name": "Pork Sinigang",
+    "type": "Pork",
+    "tags": [
+      "Sour / Tangy",
+      "Salty / Savory",
+      "Contains Vegetables",
+      "Broth / Soup"
+    ],
+    "image": "https://panlasangpinoy.com/wp-content/uploads/2022/09/pork-sinigang-panlasang-pinoy.jpg",
+    "ingredients": [
+      "Pork belly",
+      "Garlic",
+      "Onion",
+      "Tomato",
+      "Water",
+      "Black pepper",
+      "Salt",
+      "Pork cube",
+      "Sinigang mix",
+      "Radish",
+      "Sigarilyas",
+      "Okra",
+      "Kangkong"
+    ]
+  },
+  {
+    "name": "Tinola",
+    "type": "Chicken",
+    "tags": [
+      "Salty / Savory",
+      "Rich / Umami",
+      "Contains Vegetables",
+      "Broth / Soup",
+      "One-Pan / One-Pot"
+    ],
+    "image": "https://panlasangpinoy.com/wp-content/uploads/2018/11/Classic-Chicken-Tinola.jpg",
+    "ingredients": [
+      "Garlic",
+      "Onion",
+      "Chicken",
+      "Water",
+      "Patis",
+      "Black Pepper",
+      "Chicken Cube",
+      "Papaya",
+      "Sili Leaves"
+    ]
+  }
 ]

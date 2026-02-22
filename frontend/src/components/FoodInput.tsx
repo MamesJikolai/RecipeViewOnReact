@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { ChangeEvent } from "react";
 import FoodInputIngredients from "./FoodInputIngredients";
+import axios from "axios";
 
 interface FoodInputProps {
     isFilter: boolean;
@@ -51,6 +52,16 @@ function FoodInput({ isFilter, onApplyFilter }: FoodInputProps) {
         },
     ];
 
+    const capitalizeWords = (str: string) => {
+        const lowerCased = str.toLowerCase();
+        const words = lowerCased.split(" ");
+        const capitalizedWords = words.map((word) => {
+            if (word.length === 0) return word;
+            return word.charAt(0).toUpperCase() + word.slice(1);
+        });
+        return capitalizedWords.join(" ");
+    };
+
     const handleFoodInfoChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, checked } = event.target;
 
@@ -66,14 +77,24 @@ function FoodInput({ isFilter, onApplyFilter }: FoodInputProps) {
 
                     return { ...prevInfo, [name]: updatedArray };
                 } else {
-                    return { ...prevInfo, [name]: checked ? value : "" };
+                    return {
+                        ...prevInfo,
+                        [name]: checked ? capitalizeWords(value) : "",
+                    };
                 }
             });
         } else {
-            setFoodInfo((prevInfo) => ({
-                ...prevInfo,
-                [name]: value,
-            }));
+            if (name !== "imageLink") {
+                setFoodInfo((prevInfo) => ({
+                    ...prevInfo,
+                    [name]: capitalizeWords(value),
+                }));
+            } else {
+                setFoodInfo((prevInfo) => ({
+                    ...prevInfo,
+                    [name]: value,
+                }));
+            }
         }
     };
 
@@ -94,11 +115,18 @@ function FoodInput({ isFilter, onApplyFilter }: FoodInputProps) {
         });
     }
 
-    function handleSubmit() {
+    const handleSubmit = async () => {
         console.log(foodInfo);
-        // Logic to send foodInfo to backend
+        axios
+            .post("http://localhost:8080/add", foodInfo)
+            .then((response) => {
+                console.log("Food info submitted successfully:", response.data);
+            })
+            .catch((error) => {
+                console.error("Error submitting food info:", error);
+            });
         clearInputs();
-    }
+    };
 
     return (
         <div className="w-full max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-2xl border-slate-100">
@@ -186,6 +214,7 @@ function FoodInput({ isFilter, onApplyFilter }: FoodInputProps) {
             <FoodInputIngredients
                 ingredientsList={foodInfo.ingredients}
                 onIngredientsChange={updateIngredientsList}
+                capitalizeWords={capitalizeWords}
             />
 
             <div className="text-center">

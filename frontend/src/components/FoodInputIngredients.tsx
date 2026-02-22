@@ -4,11 +4,13 @@ import type { ChangeEvent } from "react";
 interface IngredientsProps {
     ingredientsList: string[];
     onIngredientsChange: (newIngredients: string[]) => void;
+    capitalizeWords: (str: string) => string;
 }
 
 function FoodInputIngredients({
     ingredientsList,
     onIngredientsChange,
+    capitalizeWords,
 }: IngredientsProps) {
     const [inputValue, setInputValue] = useState("");
 
@@ -21,7 +23,10 @@ function FoodInputIngredients({
             return;
         }
 
-        const updatedList = [...ingredientsList, inputValue.trim()];
+        const updatedList = [
+            ...ingredientsList,
+            capitalizeWords(inputValue.trim()),
+        ];
 
         onIngredientsChange(updatedList);
 

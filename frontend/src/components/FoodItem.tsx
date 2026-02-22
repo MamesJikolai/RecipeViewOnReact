@@ -24,7 +24,7 @@ function FoodItem({ data }: { data: FoodData }) {
             </div>
 
             <div
-                className={`flex flex-col grow relative transition-all duration-300 ${isExpanded ? "max-h-[500px]" : "max-h-52"}`}
+                className={`flex flex-col grow relative transition-all duration-300 ${isExpanded ? "max-h-125" : "max-h-52"}`}
             >
                 <div className="shrink-0">
                     <p className="text-xs font-medium text-emerald-600 uppercase tracking-wide">

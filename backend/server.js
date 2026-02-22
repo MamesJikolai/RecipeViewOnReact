@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import foodList from "./data/data.json" with { type: "json" };
+import fs from "fs/promises";
 
 const app = express();
 
@@ -9,21 +10,47 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(express.json());
 
 app.get("/view", (req, res) => {
     res.json({ foodList: foodList });
 });
 
-app.post("/add", (req, res) => {
-    // Logic to add food item
-    const newFoodItem = req.body; // Assuming the new food item is sent in the request body
+app.post("/add", async (req, res) => {
+    const newFoodItem = req.body;
     console.log("Received new food item: ", newFoodItem);
 
-    // Send a JSON response back to the client
-    res.status(200).json({
-        message: "Item added successfully",
-        item: newFoodItem,
-    });
+    try {
+        // 1. Read the current data from the array
+        const rawData = await fs.readFile("./data/data.json", "utf-8");
+        const database = JSON.parse(rawData);
+
+        // 2. Format the incoming data to perfectly match your database structure!
+        const formattedItem = {
+            name: newFoodItem.foodName,
+            type: newFoodItem.foodType,
+            tags: newFoodItem.recipeTags,
+            image: newFoodItem.imageLink,
+            ingredients: newFoodItem.ingredients,
+        };
+
+        // 3. Push the formatted item directly into the array (Fixed the crash!)
+        database.push(formattedItem);
+
+        // 4. Turn it back into a text string
+        const updatedDataString = JSON.stringify(database, null, 4);
+
+        // 5. Overwrite the data.json file
+        await fs.writeFile("./data/data.json", updatedDataString);
+
+        res.status(200).json({
+            message: "Item added successfully",
+            item: formattedItem,
+        });
+    } catch (error) {
+        console.error("Error saving to database:", error);
+        res.status(500).json({ message: "Failed to save the recipe." });
+    }
 });
 
 app.listen(8080, () => {
