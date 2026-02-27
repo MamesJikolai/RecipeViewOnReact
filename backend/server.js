@@ -59,11 +59,37 @@ app.post("/add", async (req, res) => {
     }
 });
 
-app.put("/update", async (req, res) => {
+app.put("/update/:id", async (req, res) => {
+    const recipeIdToUpdate = req.params.id;
+    const incomingUpdates = req.body;
+
     try {
-        //
+        const rawData = await fs.readFile("./data/data.json", "utf-8");
+        const database = JSON.parse(rawData);
+
+        const updatedDatabase = database.map((item) => {
+            if (item.id === recipeIdToUpdate) {
+                // Return the item with the newly updated properties
+                return {
+                    id: item.id, // Keep original ID
+                    name: incomingUpdates.name,
+                    type: incomingUpdates.type,
+                    tags: incomingUpdates.tags,
+                    image: incomingUpdates.image,
+                    ingredients: incomingUpdates.ingredients,
+                };
+            }
+            // CRITICAL: You must return the unmodified items too!
+            return item;
+        });
+
+        await fs.writeFile(
+            "./data/data.json",
+            JSON.stringify(updatedDatabase, null, 4),
+        );
+        res.status(200).json({ message: "Recipe updated successfully" });
     } catch (error) {
-        console.error("Error updating to database:", error);
+        console.error("Error updating database:", error);
         res.status(500).json({ message: "Failed to update the recipe." });
     }
 });

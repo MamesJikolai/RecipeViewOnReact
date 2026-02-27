@@ -1,6 +1,7 @@
 import { useState } from "react";
+import FoodInput from "./FoodInput.tsx";
 
-interface FoodData {
+export interface FoodData {
     id: string;
     name: string;
     type: string;
@@ -9,16 +10,15 @@ interface FoodData {
     ingredients: string[];
 }
 
-function FoodItem({
-    data,
-    onDelete,
-    onUpdate,
-}: {
-    data: FoodData;
+interface FoodItemProps {
     onDelete: (id: string) => void;
-    onUpdate: (id: string) => void;
-}) {
+    onUpdate: (updatedData: FoodData) => void;
+    data: FoodData;
+}
+
+function FoodItem({ data, onDelete, onUpdate }: FoodItemProps) {
     const [isExpanded, setIsExpanded] = useState(false);
+    const [showUpdate, setShowUpdate] = useState(false);
 
     const buttonText = isExpanded ? "Show Less" : "Show More...";
 
@@ -33,13 +33,36 @@ function FoodItem({
             </div>
 
             <button
-                onClick={() => onUpdate(data.id)} //onClick for update functionality
+                onClick={() => setShowUpdate(true)} //onClick for update functionality
                 className="absolute top-0.5 right-8 text-gray-400 hover:text-emerald-600 text-[1rem] font-bold z-10 transition-colors cursor-pointer"
                 aria-label="Edit recipe"
                 title="Edit recipe"
             >
                 &hellip;
             </button>
+
+            {showUpdate && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+                    <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-xl shadow-2xl">
+                        <button
+                            onClick={() => setShowUpdate(false)}
+                            className="absolute top-1 right-4 text-gray-400 hover:text-rose-600 text-3xl font-bold z-10 transition-colors"
+                            aria-label="Close filters"
+                        >
+                            &times;
+                        </button>
+
+                        <FoodInput
+                            isFilter={false}
+                            onApplyUpdate={(updatedData) => {
+                                onUpdate(updatedData);
+                                setShowUpdate(false);
+                            }}
+                            foodData={data}
+                        />
+                    </div>
+                </div>
+            )}
 
             <button
                 onClick={() => onDelete(data.id)} //onClick for delete functionality

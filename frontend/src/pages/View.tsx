@@ -1,17 +1,9 @@
 import Message from "../components/Message.tsx";
 import FoodItem from "../components/FoodItem.tsx";
 import FilterView from "../components/FilterView.tsx";
+import type { FoodData } from "../components/FoodItem.tsx";
 import axios from "axios";
 import { useState, useEffect } from "react";
-
-interface FoodData {
-    id: string;
-    name: string;
-    type: string;
-    tags: string[];
-    image: string;
-    ingredients: string[];
-}
 
 function View() {
     const [allRecipes, setAllRecipes] = useState<FoodData[]>([]);
@@ -23,8 +15,26 @@ function View() {
         setDisplayedRecipes(response.data.foodList);
     };
 
-    const updateData = async () => {
-        //
+    const updateData = async (updatedData: FoodData) => {
+        try {
+            await axios.put(
+                `http://localhost:8080/update/${updatedData.id}`,
+                updatedData,
+            );
+
+            setAllRecipes((prev) =>
+                prev.map((recipe) =>
+                    recipe.id === updatedData.id ? updatedData : recipe,
+                ),
+            );
+            setDisplayedRecipes((prev) =>
+                prev.map((recipe) =>
+                    recipe.id === updatedData.id ? updatedData : recipe,
+                ),
+            );
+        } catch (error) {
+            console.error("Failed to update", error);
+        }
     };
 
     const deleteData = async (idToDelete: string) => {

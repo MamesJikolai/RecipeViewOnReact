@@ -1,20 +1,28 @@
 import { useState } from "react";
 import type { ChangeEvent } from "react";
 import FoodInputIngredients from "./FoodInputIngredients";
+import type { FoodData } from "./FoodItem.tsx";
 import axios from "axios";
 
 interface FoodInputProps {
     isFilter: boolean;
     onApplyFilter?: (filterData: any) => void;
+    onApplyUpdate?: (updatedData: any) => void;
+    foodData?: FoodData;
 }
 
-function FoodInput({ isFilter, onApplyFilter }: FoodInputProps) {
+function FoodInput({
+    isFilter,
+    onApplyFilter,
+    onApplyUpdate,
+    foodData,
+}: FoodInputProps) {
     const [foodInfo, setFoodInfo] = useState({
-        foodName: "",
-        foodType: "",
-        recipeTags: [] as string[],
-        imageLink: "",
-        ingredients: [] as string[],
+        foodName: foodData?.name || "",
+        foodType: foodData?.type || "",
+        recipeTags: foodData?.tags || ([] as string[]),
+        imageLink: foodData?.image || "",
+        ingredients: foodData?.ingredients || ([] as string[]),
     });
 
     const foodTypes = ["Pork", "Beef", "Chicken", "Vegetables", "Seafood"];
@@ -224,10 +232,27 @@ function FoodInput({ isFilter, onApplyFilter }: FoodInputProps) {
                     onClick={
                         isFilter
                             ? () => onApplyFilter && onApplyFilter(foodInfo)
-                            : handleSubmit
+                            : foodData
+                              ? () => {
+                                    const formattedUpdate = {
+                                        id: foodData.id,
+                                        name: foodInfo.foodName,
+                                        type: foodInfo.foodType,
+                                        tags: foodInfo.recipeTags,
+                                        image: foodInfo.imageLink,
+                                        ingredients: foodInfo.ingredients,
+                                    };
+                                    onApplyUpdate &&
+                                        onApplyUpdate(formattedUpdate);
+                                }
+                              : handleSubmit
                     }
                 >
-                    {isFilter ? "Apply Filter" : "Submit"}
+                    {isFilter
+                        ? "Apply Filter"
+                        : foodData
+                          ? "Save Changes"
+                          : "Submit"}
                 </button>
 
                 {isFilter ? (
