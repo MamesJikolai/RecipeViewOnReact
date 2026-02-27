@@ -13,7 +13,12 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.get("/view", (req, res) => {
-    res.json({ foodList: foodList });
+    try {
+        res.json({ foodList: foodList });
+    } catch (error) {
+        console.error("Error fetching from database:", error);
+        res.status(500).json({ message: "Failed to fetch the recipe list." });
+    }
 });
 
 app.post("/add", async (req, res) => {
@@ -27,6 +32,7 @@ app.post("/add", async (req, res) => {
 
         // 2. Format the incoming data to perfectly match your database structure!
         const formattedItem = {
+            id: Date.now().toString(),
             name: newFoodItem.foodName,
             type: newFoodItem.foodType,
             tags: newFoodItem.recipeTags,
@@ -50,6 +56,40 @@ app.post("/add", async (req, res) => {
     } catch (error) {
         console.error("Error saving to database:", error);
         res.status(500).json({ message: "Failed to save the recipe." });
+    }
+});
+
+app.put("/update", async (req, res) => {
+    try {
+        //
+    } catch (error) {
+        console.error("Error updating to database:", error);
+        res.status(500).json({ message: "Failed to update the recipe." });
+    }
+});
+
+app.delete("/delete/:id", async (req, res) => {
+    const recipeIDToDelete = req.params.id;
+
+    try {
+        const rawData = await fs.readFile("./data/data.json", "utf-8");
+        const database = JSON.parse(rawData);
+
+        const updatedDatabase = database.filter(
+            (item) => item.id !== recipeIDToDelete,
+        );
+
+        await fs.writeFile(
+            "./data/data.json",
+            JSON.stringify(updatedDatabase, null, 4),
+        );
+
+        res.status(200).json({
+            message: "Recipe deleted successfully",
+        });
+    } catch (error) {
+        console.error("Error deleting from database:", error);
+        res.status(500).json({ message: "Failed to delete the recipe." });
     }
 });
 

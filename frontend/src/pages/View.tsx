@@ -5,6 +5,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 interface FoodData {
+    id: string;
     name: string;
     type: string;
     tags: string[];
@@ -20,6 +21,27 @@ function View() {
         const response = await axios.get("http://localhost:8080/view");
         setAllRecipes(response.data.foodList);
         setDisplayedRecipes(response.data.foodList);
+    };
+
+    const updateData = async () => {
+        //
+    };
+
+    const deleteData = async (idToDelete: string) => {
+        if (!window.confirm("Are you sure you want to delete this recipe?"))
+            return;
+
+        try {
+            await axios.delete(`http://localhost:8080/delete/${idToDelete}`);
+            setAllRecipes((prev) =>
+                prev.filter((recipe) => recipe.id !== idToDelete),
+            );
+            setDisplayedRecipes((prev) =>
+                prev.filter((recipe) => recipe.id !== idToDelete),
+            );
+        } catch (error) {
+            console.error("Failed to delete", error);
+        }
     };
 
     useEffect(() => {
@@ -74,7 +96,12 @@ function View() {
 
             <div className="flex flex-row flex-wrap justify-center gap-10">
                 {displayedRecipes?.map((item, index) => (
-                    <FoodItem key={index} data={item} />
+                    <FoodItem
+                        key={index}
+                        data={item}
+                        onDelete={deleteData}
+                        onUpdate={updateData}
+                    />
                 ))}
             </div>
         </>

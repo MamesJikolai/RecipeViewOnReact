@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 interface FoodData {
+    id: string;
     name: string;
     type: string;
     tags: string[];
@@ -8,7 +9,15 @@ interface FoodData {
     ingredients: string[];
 }
 
-function FoodItem({ data }: { data: FoodData }) {
+function FoodItem({
+    data,
+    onDelete,
+    onUpdate,
+}: {
+    data: FoodData;
+    onDelete: (id: string) => void;
+    onUpdate: (id: string) => void;
+}) {
     const [isExpanded, setIsExpanded] = useState(false);
 
     const buttonText = isExpanded ? "Show Less" : "Show More...";
@@ -22,6 +31,24 @@ function FoodItem({ data }: { data: FoodData }) {
                     className="w-full h-full object-cover object-top"
                 />
             </div>
+
+            <button
+                onClick={() => onUpdate(data.id)} //onClick for update functionality
+                className="absolute top-0.5 right-8 text-gray-400 hover:text-emerald-600 text-[1rem] font-bold z-10 transition-colors cursor-pointer"
+                aria-label="Edit recipe"
+                title="Edit recipe"
+            >
+                &hellip;
+            </button>
+
+            <button
+                onClick={() => onDelete(data.id)} //onClick for delete functionality
+                className="absolute top-0 right-2 text-gray-400 hover:text-rose-600 text-[1.5rem] font-bold z-10 transition-colors cursor-pointer"
+                aria-label="Delete recipe"
+                title="Delete recipe"
+            >
+                &times;
+            </button>
 
             <div
                 className={`flex flex-col grow relative transition-all duration-300 ${isExpanded ? "max-h-125" : "max-h-52"}`}
